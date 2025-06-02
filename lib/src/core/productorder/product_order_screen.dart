@@ -75,20 +75,20 @@ class _ProductOrderScreenState extends State<ProductOrderScreen> {
                           valueBold: true,
                           value: state.productDetail.mrp,
                         ),
-                        RowDataWidget(
+                        double.parse(state.productDetail.altQty) > 0? RowDataWidget(
                           valueFlex: 2,
                           title: "Unit Code",
                           titleBold: true,
                           valueBold: true,
                           value: state.productDetail.unitCode,
-                        ),
-                        RowDataWidget(
-                          valueFlex: 2,
-                          title: "Alt Qty Conversion",
-                          titleBold: true,
-                          valueBold: true,
-                          value: state.productDetail.altQty,
-                        ),
+                        ):const SizedBox.shrink(),
+                        // RowDataWidget(
+                        //   valueFlex: 2,
+                        //   title: "Alt Qty Conversion",
+                        //   titleBold: true,
+                        //   valueBold: true,
+                        //   value: state.productDetail.altQty,
+                        // ),
 
                         ///
                         Divider(color: hintColor),
@@ -96,6 +96,7 @@ class _ProductOrderScreenState extends State<ProductOrderScreen> {
                         ///
                         ///
                         //AlQty
+                        double.parse(state.productDetail.altQty) > 0?
                         Container(
                           margin: const EdgeInsets.all(3.0),
                           child: Row(children: [
@@ -206,7 +207,7 @@ class _ProductOrderScreenState extends State<ProductOrderScreen> {
                               ),
                             ),
                           ]),
-                        ),
+                        ): const SizedBox.shrink(),
                         //qty
                         Container(
                           margin: const EdgeInsets.all(3.0),
@@ -339,22 +340,23 @@ class _ProductOrderScreenState extends State<ProductOrderScreen> {
                             Expanded(
                               flex: 5,
                               child: TextFormField(
+                                readOnly: true,
                                 controller: state.salesRate,
                                 onTap: () {
-                                  state.salesRate.text = "";
+                                //  state.salesRate.text = "";
                                 },
                                 validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "";
-                                  } else {
-                                    return null;
-                                  }
+                                  // if (value!.isEmpty) {
+                                  //   return "";
+                                  // } else {
+                                  //   return null;
+                                  // }
                                 },
                                 onChanged: (text) {
-                                  state.orderFormKey.currentState!.validate();
+                                 // state.orderFormKey.currentState!.validate();
 
-                                  state.calculate();
-                                  setState(() {});
+                                //  state.calculate();
+                                 // setState(() {});
                                 },
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(

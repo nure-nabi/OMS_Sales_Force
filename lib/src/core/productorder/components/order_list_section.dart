@@ -52,11 +52,12 @@ class _OrderListSectionState extends State<OrderListSection> {
   Widget build(BuildContext context) {
     final state = context.watch<ProductOrderState>();
     return   WillPopScope(
-      onWillPop: (state.allTempOrderList.isNotEmpty)
-          ? () {
-              return onBackFromTempList();
-            }
-          : null,
+      onWillPop:  null,
+      // (state.allTempOrderList.isNotEmpty)
+      //     ? () {
+      //         return onBackFromTempList();
+      //       }
+      //     : null,
       child:
         Scaffold(
       appBar: AppBar(title: const Text("Order List")),

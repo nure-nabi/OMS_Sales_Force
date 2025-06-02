@@ -5,7 +5,7 @@ import 'package:oms_salesforce/src/core/coverageandproductivity/coverageandprodu
 import 'package:oms_salesforce/src/core/datepicker/datepicker.dart';
 import 'package:oms_salesforce/src/core/deliveryreport/deliveryreport.dart';
 import 'package:oms_salesforce/src/core/leavenotes/leavenotes_state.dart';
-import 'package:oms_salesforce/src/core/orderreport/order_report_state.dart';
+import 'package:oms_salesforce/src/core/orderreport1/order_report_state.dart';
 import 'package:oms_salesforce/src/core/productorder/productorder.dart';
 import 'package:oms_salesforce/src/core/products/products.dart';
 import 'package:oms_salesforce/src/core/settings/setting_state.dart';
@@ -14,10 +14,13 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import '../src/core/allreports/save_product_availability/save_product_availability.dart';
+import '../src/core/deliveryreport_customer/delivery_customer_state.dart';
 import '../src/core/homepage/homepage.dart';
 import '../src/core/imagepicker/imagepicker.dart';
 import '../src/core/login/branch/branch_state_order.dart';
 import '../src/core/login/login.dart';
+import '../src/core/orderReportDetails/orderReportDetails.dart';
+import '../src/core/orderreport1/datePicker/datePicker.dart';
 import '../src/core/outletvisit/outletvisit.dart';
 import '../src/core/pendingsync/pendingsync.dart';
 import '../src/core/pendingverify/pending_verify_state.dart';
@@ -69,6 +72,7 @@ List<SingleChildWidget> myStateList = [
   ChangeNotifierProvider(create: (_) => SaveLedgetNotesState()),
   ChangeNotifierProvider(create: (_) => SalesReturnState()),
   ChangeNotifierProvider(create: (_) => ReportLinkState()),
+  ChangeNotifierProvider(create: (_) => DeliveryCustomerState()),
 
   /// ========== REPORT SECTION ========== ///
 
@@ -85,4 +89,11 @@ List<SingleChildWidget> myStateList = [
 
   ///
   ChangeNotifierProvider(create: (_) => SaveProductAvailabilityState()),
+  /// New Added Features
+  ChangeNotifierProvider(create: (_) => SaveProductAvailabilityState()),
+
+  ChangeNotifierProvider(create: (_) => DatePickerState1()),
+
+  ChangeNotifierProvider(create: (_) => OrderDetailsState()),
+
 ];

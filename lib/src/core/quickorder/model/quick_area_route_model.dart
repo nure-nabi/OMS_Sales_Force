@@ -135,7 +135,7 @@ class OutletInfoModel {
       priceTag: json["price_tag"] ?? "",
       latitude: json["Latitude"] ?? "",
       longitude: json["Longitude"] ?? "",
-      balance: json["Balance"] ?? "",
+      balance: json["Balance"] == "" ? "" :json["Balance"], // Default "0.00" if null
       productPointBalance: json["ProductPointBalance"] ?? "",
     );
   }

@@ -126,9 +126,9 @@ class OrderReportState extends ChangeNotifier {
     notifyListeners();
   }
   onSuccess({required List<OrderReportDataModel> data}) async {
-    await OrderReportDatabase.instance.deleteData();
+    await OrderReportDatabase1.instance.deleteData();
     for (var element in data) {
-      await OrderReportDatabase.instance.insertData(element);
+      await OrderReportDatabase1.instance.insertData(element);
     }
    // await getDateWiseReport();
     await getDateListFromDataBase();
@@ -136,7 +136,7 @@ class OrderReportState extends ChangeNotifier {
     notifyListeners();
   }
   getDateListFromDataBase() async {
-    await OrderReportDatabase.instance.getDateList().then((value) {
+    await OrderReportDatabase1.instance.getDateList().then((value) {
       orderList = value;
     });
     isLoading = false;
@@ -145,7 +145,7 @@ class OrderReportState extends ChangeNotifier {
 
   getDateWiseReport() async {
     isLoading = true;
-    await OrderReportDatabase.instance.getDateWiseList(fromDate: fromDate,toDate: toDate).then((value) {
+    await OrderReportDatabase1.instance.getDateWiseList(fromDate: fromDate,toDate: toDate).then((value) {
       orderList = value;
     });
     await SetAllPref.setWhenHaveListDbPending(value: true);

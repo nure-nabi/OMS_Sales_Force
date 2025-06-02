@@ -23,8 +23,7 @@ class ToDoActivityScreen extends StatelessWidget {
                       element.activityCreatedon.substring(0, 10),
                   groupSeparatorBuilder: (String groupByValue) {
                     int index = state.activityDataList.indexWhere((element) =>
-                        element.activityCreatedon.substring(0, 10) ==
-                        groupByValue);
+                        element.activityCreatedon.substring(0, 10) == groupByValue);
                     return TableHeaderWidget(
                       color: state.selectedToDo.taskStatus == "Completed"
                           ? Colors.purple

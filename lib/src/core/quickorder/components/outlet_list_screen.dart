@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oms_salesforce/src/core/quickorder/quick_order_state.dart';
 import 'package:oms_salesforce/src/service/router/router.dart';
 import 'package:oms_salesforce/src/service/sharepref/set_all_pref.dart';
@@ -83,6 +84,7 @@ class OutletListScreen extends StatelessWidget {
                                   productGroupListPath,
                                   arguments: indexData,);
                               await  SetAllPref.setOutLetName(value: indexData.outletDesc);
+                              await  SetAllPref.setOutLetCode(value: indexData.outletCode);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(

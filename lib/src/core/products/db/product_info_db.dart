@@ -36,7 +36,8 @@ class ProductInfoDatabase {
       {required String glCode}) async {
     db = await DatabaseHelper.instance.database;
     final List<Map<String, dynamic>> mapData = await db!.rawQuery(
-        ''' SELECT DISTINCT ${DatabaseDetails.grpDesc}, ${DatabaseDetails.grpCode} FROM ${DatabaseDetails.productTable} where ${DatabaseDetails.glCode} = "$glCode" ''');
+       // ''' SELECT DISTINCT ${DatabaseDetails.grpDesc}, ${DatabaseDetails.grpCode} FROM ${DatabaseDetails.productTable} where ${DatabaseDetails.glCode} = "$glCode" ''');
+        ''' SELECT DISTINCT ${DatabaseDetails.grpDesc}, ${DatabaseDetails.grpCode} FROM ${DatabaseDetails.productTable}''');
 
     return List.generate(mapData.length, (i) {
       return FilterProductModel.fromJson(mapData[i]);
@@ -57,8 +58,9 @@ class ProductInfoDatabase {
                   on p.${DatabaseDetails.pCode} = toi.${DatabaseDetails.pCode} AND toi.${DatabaseDetails.outletCode} = "$outletCode"
         left outer join  ${DatabaseDetails.orderProductTable} orderInfo 
                   on p.${DatabaseDetails.pCode} = orderInfo.${DatabaseDetails.pCode}  AND orderInfo.${DatabaseDetails.outletCode} = "$outletCode"
-        WHERE  ${DatabaseDetails.grpCode} = "$groupCode" AND ${DatabaseDetails.glCode} = "$glCode" ''';
+        WHERE  ${DatabaseDetails.grpCode} = "$groupCode" Group by p.${DatabaseDetails.pDesc} ''';
 
+    //WHERE  ${DatabaseDetails.grpCode} = "$groupCode" AND ${DatabaseDetails.glCode} = "$glCode" ''';
     final List<Map<String, dynamic>> mapData = await db!.rawQuery(myQuery);
 
     CustomLog.successLog(value: "MY Query => $myQuery");

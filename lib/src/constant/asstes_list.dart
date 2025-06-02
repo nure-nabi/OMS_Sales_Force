@@ -14,6 +14,7 @@ class AssetsList {
   static String activityGPS = "assets/icons/activity_gps.png";
   static String pdcReport = "assets/icons/pdc_report.png";
   static String rightArrow = "assets/icons/right_arrow.png";
+  static String noDataImage = "assets/icons/no_data.png";
 
   static String outletVisit = "assets/icons/outlet_visit.png";
   static String topBuying = "assets/icons/top_buying.png";

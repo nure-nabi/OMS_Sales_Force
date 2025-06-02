@@ -217,7 +217,8 @@ class ProductOrderState extends ChangeNotifier {
       CustomLog.actionLog(value: "VALUE => ${_totalPrice.toStringAsFixed(2)}");
       TempProductOrderModel orderProduct = TempProductOrderModel(
         routeCode: productState.outletDetail.routeCode,
-        outletCode: _productDetail.glCode,
+        //outletCode: _productDetail.glCode,
+        outletCode: await GetAllPref.getOutLetCode(),
         pCode: _productDetail.pCode,
         alias: _productDetail.alias,
         rate: _salesRate.text.trim(),
@@ -308,7 +309,7 @@ class ProductOrderState extends ChangeNotifier {
   }
   getIndexTotalAmount({required String rate}) {
     double vatAmount = (double.parse(rate) * 0.13);
-    CustomLog.actionLog(value: "TOTAL AMOUNT CHECK => $rate");
+    CustomLog.actionLog(value: "TOTAL AMOUNT CHECKDDDD => $rate");
     return vatAmount + double.parse(rate);
   }
 

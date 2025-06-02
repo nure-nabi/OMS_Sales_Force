@@ -40,7 +40,7 @@ class BranchStateOrder extends ChangeNotifier {
   init() async {
     await clean();
    // await getBranchListFromRemote();
-    await getBranchListFrom();
+    await getCompanyBranchList();
   }
 
   clean() async {
@@ -89,7 +89,7 @@ class BranchStateOrder extends ChangeNotifier {
 
     ///
     try {
-      BranchModel model = await BranchAPI.getBranchs(
+      BranchModel model = await BranchAPI.getAgentBranchList(
         databaseName: _companyDetail.databaseName,
         agentCode: _companyDetail.agentCode,
       );
@@ -109,14 +109,13 @@ class BranchStateOrder extends ChangeNotifier {
   }
 
 
-  getBranchListFrom() async {
-    _companyDetail = await GetAllPref.companyDetail();
 
-    ///
+  getCompanyBranchList() async {
+    _companyDetail = await GetAllPref.companyDetail();
     try {
-      BranchModel model = await BranchAPI.getBranch(
+      BranchModel model = await BranchAPI.getCompanyBranch(
         databaseName: _companyDetail.databaseName,
-        agentCode: _companyDetail.agentCode,
+      //  agentCode: _companyDetail.agentCode,
       );
       if (model.statusCode == 200) {
         branchList = model.data;

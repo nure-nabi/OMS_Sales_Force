@@ -15,7 +15,9 @@ const String targetAndAchivementPath = "/targetAndAchivementPath";
 
 //
 const String deliveryReportPath = "/deliveryReportPath";
+const String deliveryReportCustomerScreen = "/deliveryReportCustomerScreen";
 const String deliveryOutletSectionPath = "/deliveryOutletSectionPath";
+const String deliveryOutletCustomerSection = "/deliveryOutletCustomerSection";
 
 ///
 const String addOutletPath = "/addOutletPath";
@@ -36,7 +38,8 @@ const String saveJournalPath = '/SaveJournalScreen';
 const String saveNotesPath = '/SaveLedgerNotesScreen';
 const String salesReturnPath = '/SalesReturnScreen';
 const String linkReportPath = '/ReportLinkScreen';
-
+const String orderOutletScreen = '/OrderOutletScreen';
+const String orderBillScreen = '/OrderBillScreen';
 ///
 const String settingPath = '/SettingScreen';
 const String orderReportPath = '/OrderReportScreen';

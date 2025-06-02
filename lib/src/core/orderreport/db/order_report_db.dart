@@ -5,13 +5,13 @@ import 'package:sqflite/sqflite.dart';
 import '../model/order_report_model.dart';
 
 
-class OrderReportDatabase {
+class OrderReportDatabase1 {
   Database? db;
 
-  OrderReportDatabase._privateConstructor();
+  OrderReportDatabase1._privateConstructor();
 
-  static final OrderReportDatabase instance =
-  OrderReportDatabase._privateConstructor();
+  static final OrderReportDatabase1 instance =
+  OrderReportDatabase1._privateConstructor();
 
   Future<int> insertData(OrderReportDataModel data) async {
     db = await DatabaseHelper.instance.database;

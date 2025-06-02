@@ -160,6 +160,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: Text(
+
                                       productModel.stockBalance,
                                       textAlign: TextAlign.end,
                                       style: whiteTextStyle,

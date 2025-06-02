@@ -167,6 +167,13 @@ class SetAllPref {
       type: "String",
     );
   }
+  static setOutLetCode({required String value}) async {
+    await SharedPref.setData(
+      key: PrefText.setOutLetCode,
+      dValue: value,
+      type: "String",
+    );
+  }
   static setProductName({required String value}) async {
     await SharedPref.setData(
       key: PrefText.productName,

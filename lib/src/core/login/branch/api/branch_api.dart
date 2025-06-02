@@ -2,7 +2,7 @@ import '../../../../service/api/api.dart';
 import '../model/branch_model.dart';
 
 class BranchAPI {
-  static Future getBranchs({
+  static Future getAgentBranchList({
     required String databaseName,
     required String agentCode,
   }) async {
@@ -14,9 +14,9 @@ class BranchAPI {
     return BranchModel.fromJson(jsonData);
   }
 
-  static Future getBranch({
+  static Future getCompanyBranch({
     required String databaseName,
-    required String agentCode,
+   // required String agentCode,
   }) async {
     var jsonData = await APIProvider.getAPI(
       endPoint:

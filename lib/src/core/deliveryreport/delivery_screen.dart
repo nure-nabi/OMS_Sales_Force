@@ -42,7 +42,7 @@ class _DeliveryReportScreenState extends State<DeliveryReportScreen> {
       return Stack(
         children: [
           Scaffold(
-            appBar: AppBar(title: const Text("Delivery Report"),
+            appBar: AppBar(title: const Text("Delivery Reports"),
             actions: [
               IconButton(
                 onPressed: () async {

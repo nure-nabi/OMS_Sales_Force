@@ -61,6 +61,7 @@ class ProductState extends ChangeNotifier {
   }
 
   checkConnection() async {
+    await getGroupProductListFromDB();
     CheckNetwork.check().then((network) async {
       getCompanyDetail = await GetAllPref.companyDetail();
       if (network) {
@@ -74,6 +75,7 @@ class ProductState extends ChangeNotifier {
   networkSuccess() async {
     ///
    //  await getGroupProductListFromDB();
+   // Fluttertoast.showToast(msg:filterGroupList.length.toString());
     getLoading = true;
      if(filterGroupList.isNotEmpty){
        await getGroupProductListFromDB();
@@ -145,12 +147,13 @@ class ProductState extends ChangeNotifier {
     ProductModel productData = await ProductAPI.getProduct(
       agentCode: _companyDetail.agentCode,
       dbName: _companyDetail.databaseName,
-      brCode: await GetAllPref.unitCode(),
+     // brCode: await GetAllPref.unitCode() ?? "",
+      brCode: "",
       customer: outletDetail.glDesc,
     );
     if (productData.statusCode == 200) {
       await onSuccess(dataModel: productData.data);
-      getProductGroupTableList = productData.data;
+    //  getProductGroupTableList = productData.data;
     } else {
       ShowToast.errorToast(msg: "Failed to get data");
     }
@@ -179,6 +182,7 @@ class ProductState extends ChangeNotifier {
   }
 
   getGroupProductListFromDB() async {
+
     await ProductInfoDatabase.instance
         .getProductGroupData(glCode: _outletDetail.glCode)
         .then((value) {

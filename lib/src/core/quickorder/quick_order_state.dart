@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oms_salesforce/model/model.dart';
 import 'package:oms_salesforce/src/core/login/login.dart';
 import 'package:oms_salesforce/src/core/quickorder/quickorder.dart';
 import 'package:oms_salesforce/src/service/sharepref/get_all_pref.dart';
 import 'package:oms_salesforce/src/utils/utils.dart';
-
 import 'api/create_outlet_api.dart';
 
 class QuickOrderState extends ChangeNotifier {
@@ -58,6 +57,7 @@ class QuickOrderState extends ChangeNotifier {
     notifyListeners();
   }
 
+
   late CompanyDetailsModel _companyDetail = CompanyDetailsModel.fromJson({});
   CompanyDetailsModel get companyDetail => _companyDetail;
   set getCompanyDetail(CompanyDetailsModel value) {
@@ -66,6 +66,7 @@ class QuickOrderState extends ChangeNotifier {
   }
 
   checkConnection() async {
+    await getRouteListFromDB();
     CheckNetwork.check().then((network) async {
       getCompanyDetail = await GetAllPref.companyDetail();
       if (network) {
@@ -78,9 +79,13 @@ class QuickOrderState extends ChangeNotifier {
 
   networkSuccess() async {
     ///
-    getLoading = true;
-    await getDataFromAPI();
-    getLoading = false;
+    // getLoading = true;
+    if(filterRouteGroup.isNotEmpty){
+      await getRouteListFromDB();
+    }else {
+      await getDataFromAPI();
+    }
+    // getLoading = false;
 
   }
 
@@ -100,6 +105,7 @@ class QuickOrderState extends ChangeNotifier {
     _routeList = [];
     _outletList = [];
     _filterOutletList = [];
+    _filterRouteGroup=[];
   }
 
   veriableClear() {
@@ -123,17 +129,12 @@ class QuickOrderState extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<FilterOutletInfoModel> _routeList = [],
-      _outletList = [],
-      _filterOutletList = [];
+  List<FilterOutletInfoModel> _routeList = [], _outletList = [], _filterOutletList = [], _filterRouteGroup = [];
   List<FilterOutletInfoModel> get routeList => _routeList;
   List<FilterOutletInfoModel> get outletList => _outletList;
   List<FilterOutletInfoModel> get filterOutletList => _filterOutletList;
+  List<FilterOutletInfoModel> get filterRouteGroup => _filterRouteGroup;
 
-  set getRouteList(List<FilterOutletInfoModel> value) {
-    _routeList = value;
-    notifyListeners();
-  }
 
   set getOutletList(List<FilterOutletInfoModel> value) {
     _outletList = [];
@@ -141,18 +142,32 @@ class QuickOrderState extends ChangeNotifier {
     _filterOutletList = _outletList;
     notifyListeners();
   }
+  set getRouteList(List<FilterOutletInfoModel> value) {
+    _routeList=[];
+    _routeList = value;
+    _filterRouteGroup = _routeList;
+    notifyListeners();
+  }
 
+
+  set filterRouteGroup(value) {
+    _filterRouteGroup = _routeList.where((u) => (u.routeDesc.toLowerCase().contains(value.toLowerCase()))).toList();
+    notifyListeners();
+  }
   getDataFromAPI() async {
+    getLoading = true;
     QuickAreaRouteModel routeModel = await QuickOrderAPI.getRouteAPI(
       agentCode: _companyDetail.agentCode,
       dbName: _companyDetail.databaseName,
-      unit: await GetAllPref.unitCode(),
-      methodName: _isAreaShow
-          ? "ListSalesmanAssignToRouteAgent"
-          : "ListSalesmanAssignToRoute",
+     // unit: await GetAllPref.unitCode(),
+      unit: "",
+      //methodName: _isAreaShow ? "ListSalesmanAssignToRouteAgent" : "ListSalesmanAssignToRoute",
+      methodName:  "ListSalesmanAssignToRoute",
     );
     if (routeModel.statusCode == 200) {
+
       await onSuccess(dataModel: routeModel.zoneData);
+      getLoading = false;
     } else {
       ShowToast.errorToast(msg: "Failed to get data");
     }
@@ -161,6 +176,7 @@ class QuickOrderState extends ChangeNotifier {
 
   onSuccess({required List<ZoneRouteModel> dataModel}) async {
     ///
+
     List<FilterOutletInfoModel> data = await filterAndArrangeData(
       dataModel: dataModel,
     );
@@ -278,6 +294,7 @@ class QuickOrderState extends ChangeNotifier {
     for (var zoneData in dataModel) {
       for (var routeData in zoneData.routeList) {
         for (var outletInfo in routeData.outletInfo) {
+
           filterData.add(_createFilterOutletInfoModel(
             outletInfo: outletInfo,
             mAreaCode: zoneData.mAreaCode,
@@ -307,6 +324,7 @@ class QuickOrderState extends ChangeNotifier {
     required String routeCode,
     required String routeDesc,
   }) {
+
     return FilterOutletInfoModel(
       glCode: outletInfo.glCode,
       glDesc: outletInfo.glDesc,
@@ -396,7 +414,7 @@ class QuickOrderState extends ChangeNotifier {
   late TextEditingController _panNo = TextEditingController(text: "");
   late TextEditingController _outletType = TextEditingController(text: "");
   late final TextEditingController _route =
-      TextEditingController(text: _selectedRouteName);
+  TextEditingController(text: _selectedRouteName);
 
   TextEditingController get outletName => _outletName;
   TextEditingController get contactPerson => _contactPerson;

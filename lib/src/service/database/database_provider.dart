@@ -67,13 +67,21 @@ class DatabaseHelper {
 
     await CreateTable(db).deliveryReportTable();
 
+    await CreateTable(db).deliveryReportByCustomerTable();
+
     await CreateTable(db).localMovementTable();
 
     await CreateTable(db).ledgerReportTable();
 
     await CreateTable(db).saveProductAvailabilityTable();
+
     await CreateTable(db).saveOrderReport();
+
+    await CreateTable(db).orderProductTableGroup();
+
     await CreateTable(db).productAvailability();
+
+    await CreateTable(db).branch();
 
     ///
   }

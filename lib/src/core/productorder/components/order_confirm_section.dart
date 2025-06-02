@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../service/sharepref/get_all_pref.dart';
 import '../../../service/sharepref/set_all_pref.dart';
+import '../../../widgets/alert/confirmation_alert.dart';
 import '../../../widgets/alert/show_alert.dart';
 import '../../../widgets/container_decoration.dart';
 import '../../../widgets/space.dart';
@@ -45,54 +46,88 @@ class _OrderConfirmSectionState extends State<OrderConfirmSection> {
     textEditingController.dispose();
     super.dispose();
   }
-
+  Future<bool> onBackFromTempList() async {
+    return await ShowAlert(context).alert(
+      child: ConfirmationWidget(
+        title: "PLEASE CONFIRM YOUR ORDER ?",
+        description: "Otherwise order will get cleared.",
+        onCancel: () async {
+          await TempProductOrderDatabase.instance.deleteData().whenComplete(() {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              homePagePath,
+                  (route) => true,
+            );
+          });
+        },
+        onConfirm: () {
+          Navigator.pop(context);
+          //   Navigator.popAndPushNamed(context, orderConfirmPath);
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => const OrderConfirmSection(),
+          //   ),
+          // );
+        },
+      ),
+    );
+  }
+  final _commentKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final state = context.watch<ProductOrderState>();
-    return Scaffold(
-      appBar: AppBar(title: const Text("Add Comment")),
-      bottomSheet: _noteSection(),
-      body: ListView(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.all(10.0),
-        children: [
-          Form(
-            key: state.commentKey,
-            child: TextFormField(
-              controller: state.comment,
-              maxLines: 1,
-              style: const TextStyle(fontSize: 15.0),
-              onChanged: (value) {
-                state.commentKey.currentState!.validate();
-              },
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "";
-                }
-                return null;
-              },
-              decoration: TextFormDecoration.decoration(
-                hintText: "Comment",
-                hintStyle: hintTextStyle.copyWith(fontSize: 20.0),
-                containPadding: const EdgeInsets.all(20.0),
+    return WillPopScope(
+      onWillPop:
+      (state.allTempOrderList.isNotEmpty)
+          ? () {
+        return onBackFromTempList();
+            }
+          : null,
+      child: Scaffold(
+        appBar: AppBar(title: const Text("Add Comment")),
+        bottomSheet: _noteSection(),
+        body: ListView(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(10.0),
+          children: [
+            Form(
+              key: _commentKey,
+              child: TextFormField(
+                controller: state.comment,
+                maxLines: 1,
+                style: const TextStyle(fontSize: 15.0),
+                onChanged: (value) {
+                  _commentKey.currentState!.validate();
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "";
+                  }
+                  return null;
+                },
+                decoration: TextFormDecoration.decoration(
+                  hintText: "Comment",
+                  hintStyle: hintTextStyle.copyWith(fontSize: 20.0),
+                  containPadding: const EdgeInsets.all(20.0),
+                ),
               ),
             ),
-          ),
 
-          ///
-          ///
-          ///
-          optionsWidget(title: "By Visit", index: 1),
-          optionsWidget(title: "By Phone/SMS", index: 2),
+            ///
+            ///
+            ///
+            optionsWidget(title: "By Visit", index: 1),
+            optionsWidget(title: "By Phone/SMS", index: 2),
 
-          ///
-          verticalSpace(10.0),
+            ///
+            verticalSpace(10.0),
 
-          ///
-          ///
-          _buttonWidget(state),
-        ],
+            ///
+            ///
+            _buttonWidget(state),
+          ],
+        ),
       ),
     );
   }
@@ -313,7 +348,7 @@ class _OrderConfirmSectionState extends State<OrderConfirmSection> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    if (state.commentKey.currentState!.validate()) {
+                    if (_commentKey.currentState!.validate()) {
                       if(provider.unitDesc!.isNotEmpty) {
                         provider.getUnitDesc = null;
                         await state.onFinalOrderSaveToDB().whenComplete(() {
@@ -378,7 +413,7 @@ class _OrderConfirmSectionState extends State<OrderConfirmSection> {
                   icon: const Icon(Icons.print_rounded),
                   label: const Text("Add Comment And Print"),
                   onPressed: () async {
-                    if (state.commentKey.currentState!.validate()) {
+                    if (_commentKey.currentState!.validate()) {
                       await state.onFinalOrderSaveToDB().whenComplete(() {
                         context
                             .read<SaveMovementState>()
@@ -452,7 +487,7 @@ class _OrderConfirmSectionState extends State<OrderConfirmSection> {
           children: [
             ElevatedButton(
               onPressed: () async {
-                if (state.commentKey.currentState!.validate()) {
+                if (_commentKey.currentState!.validate()) {
                   await state.onFinalOrderSaveToDB().whenComplete(() {
                     context
                         .read<SaveMovementState>()
@@ -511,7 +546,7 @@ class _OrderConfirmSectionState extends State<OrderConfirmSection> {
               icon: const Icon(Icons.print_rounded),
               label: const Text("Add Comment And Print"),
               onPressed: () async {
-                if (state.commentKey.currentState!.validate()) {
+                if (_commentKey.currentState!.validate()) {
                   await state.onFinalOrderSaveToDB().whenComplete(() {
                     context
                         .read<SaveMovementState>()

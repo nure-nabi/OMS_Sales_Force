@@ -64,7 +64,6 @@ class DeliveryState extends ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
-
   late bool _isFromIndex = true;
   bool get isFromIndex => _isFromIndex;
   set getIsFromIndex(bool value) {
@@ -113,7 +112,9 @@ class DeliveryState extends ChangeNotifier {
     _companyDetail = await GetAllPref.companyDetail();
   }
 //9801064780
+
   getAPICall() async {
+
 
     getLoading = true;
     DeliveryReportModel reportModel = await DeliveryReportAPI.apiCall(
@@ -122,7 +123,8 @@ class DeliveryState extends ChangeNotifier {
       unitCode: "",
       module: "",
       userCode: '',
-      glCode: _isFromIndex ? "" : productState.outletDetail.glCode,
+      glCode:   "",
+     // glCode: _isFromIndex ? "" : productState.outletDetail.glCode,
       agentCode: _companyDetail.agentCode,
     );
 

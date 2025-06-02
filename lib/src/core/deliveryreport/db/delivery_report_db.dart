@@ -15,7 +15,7 @@ class DeliveryReportDatabase {
   Future<int> insertData(DeliveryReportDataModel data) async {
     db = await DatabaseHelper.instance.database;
 
-    CustomLog.actionLog(value: "DELIVERY Added => ${data.toJson()} ");
+   // CustomLog.actionLog(value: "DELIVERY Added => ${data.toJson()} ");
     return await db!.insert(
       DatabaseDetails.deliveryTableInfo,
       data.toJson(),

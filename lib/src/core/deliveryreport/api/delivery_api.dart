@@ -16,6 +16,7 @@ class DeliveryReportAPI {
       endPoint:
           "MasterList/ListSalesInvoice?DbName=$dbName&BrCode=$brCode&UnitCode=$unitCode&Module=$module&UserCode=$userCode&GlCode=$glCode&Agentcode=$agentCode",
     );
+    print( "MasterList/ListSalesInvoice?DbName=$dbName&BrCode=$brCode&UnitCode=$unitCode&Module=$module&UserCode=$userCode&GlCode=$glCode&Agentcode=$agentCode");
     return DeliveryReportModel.fromJson(jsonData);
   }
 }

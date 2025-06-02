@@ -45,6 +45,7 @@ class DatabaseDetails {
   static String routeStatus = "routeStatus";
   static String outletStatus = "outletStatus";
 
+  static const String orderProductTableGroup = "orderProductTableGroup";
   ///
   ///
   static String productTable = "ProductInfo";
@@ -104,6 +105,7 @@ class DatabaseDetails {
   ///
   ///
   static String deliveryTableInfo = "DeliveryTableInfo";
+  static String deliveryReportByCustomerTableInfo = "DeliveryReportByCustomerTableInfo";
   static String vNo = "VNo";
   static String vDate = "VDate";
   static String VDate = "Date";
@@ -179,5 +181,13 @@ class DatabaseDetails {
   static const String areaShortName = "AreaShortName";
   static const String areaDesc = "AreaDesc";
   static const String pADate = "PADate";
+
+
+  static const String branchTable = "Branch";
+  static const String branchCode = "BranchCode";
+
+
+
+
 
 }

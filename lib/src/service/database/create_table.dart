@@ -164,6 +164,21 @@ class CreateTable {
                                                 ${DatabaseDetails.pONo} TEXT,
                                                 ${DatabaseDetails.subledgerDesc} TEXT) ''');
   }
+  deliveryReportByCustomerTable() async {
+    await db.execute(
+        ''' CREATE TABLE if not exists ${DatabaseDetails.deliveryReportByCustomerTableInfo} (  
+                                                ${DatabaseDetails.vNo} TEXT,  
+                                                ${DatabaseDetails.vDate} TEXT,  
+                                                ${DatabaseDetails.vTime} TEXT,  
+                                                ${DatabaseDetails.vMiti} TEXT,  
+                                                ${DatabaseDetails.glCode} TEXT,    
+                                                ${DatabaseDetails.glDesc} TEXT,    
+                                                ${DatabaseDetails.glShortName} TEXT,    
+                                                ${DatabaseDetails.netAmount} TEXT,
+                                                ${DatabaseDetails.agentDesc} TEXT,
+                                                ${DatabaseDetails.pONo} TEXT,
+                                                ${DatabaseDetails.subledgerDesc} TEXT) ''');
+  }
 
   localMovementTable() async {
     await db.execute(
@@ -254,6 +269,49 @@ class CreateTable {
                                                 ${DatabaseDetails.qty} TEXT,
                                                 ${DatabaseDetails.price} TEXT,
                                                 ${DatabaseDetails.pADate} TEXT) ''');
+  }
+  orderProductTableGroup() async {
+    await db.execute(
+        ''' CREATE TABLE if not exists ${DatabaseDetails.orderProductTableGroup} (  
+                                                ${DatabaseDetails.glCode} TEXT,  
+                                                ${DatabaseDetails.vNo} TEXT,  
+                                                ${DatabaseDetails.salesman} TEXT,  
+                                                ${DatabaseDetails.glDesc} TEXT ,
+                                                ${DatabaseDetails.route} TEXT ,
+                                                ${DatabaseDetails.telNoI} TEXT,
+                                                ${DatabaseDetails.mobile} TEXT,  
+                                                ${DatabaseDetails.creditLimite} TEXT,  
+                                                ${DatabaseDetails.creditDay} TEXT,  
+                                                ${DatabaseDetails.overdays} TEXT ,
+                                                ${DatabaseDetails.overLimit} TEXT ,
+                                                ${DatabaseDetails.currentBalance} TEXT ,
+                                                ${DatabaseDetails.ageOfOrder} TEXT,  
+                                                ${DatabaseDetails.qty} TEXT,  
+                                                ${DatabaseDetails.vDate} TEXT,  
+                                                ${DatabaseDetails.vTime} TEXT ,
+                                                ${DatabaseDetails.netAmt} TEXT ,
+                                                ${DatabaseDetails.remarks} TEXT ,
+                                                ${DatabaseDetails.orderBy} TEXT,  
+                                                ${DatabaseDetails.lat} TEXT,  
+                                                ${DatabaseDetails.lng} TEXT,  
+                                                ${DatabaseDetails.managerRemarks} TEXT ,
+                                                ${DatabaseDetails.reconcileDate} TEXT ,
+                                                ${DatabaseDetails.reconcileBy} TEXT,
+                                                ${DatabaseDetails.entryModule} TEXT,
+                                                ${DatabaseDetails.invType} TEXT,
+                                                ${DatabaseDetails.invDate} TEXT
+                                         )''');
+  }
+
+  branch() async {
+    await db.execute(
+        ''' CREATE TABLE if not exists ${DatabaseDetails.branchTable} (
+                                                ${DatabaseDetails.agentCode} TEXT,
+                                                ${DatabaseDetails.agentShortName} TEXT,
+                                                ${DatabaseDetails.agentDesc} TEXT,
+                                                ${DatabaseDetails.branchCode} TEXT,
+                                                ${DatabaseDetails.mobile} TEXT
+                                                ) ''');
   }
 
 }

@@ -3,10 +3,12 @@ import 'package:oms_salesforce/src/core/allreports/allreports.dart';
 import 'package:oms_salesforce/src/core/allreports/questions/ui/questions_screen.dart';
 import 'package:oms_salesforce/src/core/coverageandproductivity/coverage_productivity_screen.dart';
 import 'package:oms_salesforce/src/core/deliveryreport/deliveryreport.dart';
+import 'package:oms_salesforce/src/core/deliveryreport_customer/components/outlet_list_customer_section.dart';
+import 'package:oms_salesforce/src/core/deliveryreport_customer/delivery_screen_customer.dart';
 import 'package:oms_salesforce/src/core/homepage/homepage.dart';
 import 'package:oms_salesforce/src/core/leavenotes/leavenotes_screen.dart';
 import 'package:oms_salesforce/src/core/login/login.dart';
-import 'package:oms_salesforce/src/core/productavailabilityreport/product_availability_product_screen.dart';
+
 import 'package:oms_salesforce/src/core/products/products.dart';
 import 'package:oms_salesforce/src/core/quickorder/quickorder.dart';
 import 'package:oms_salesforce/src/core/settings/setting_screen.dart';
@@ -15,7 +17,10 @@ import 'package:oms_salesforce/src/core/targetandachivement/targetandachivement.
 import 'package:page_transition/page_transition.dart';
 
 import '../../core/allreports/save_product_availability/save_product_availability.dart';
-import '../../core/orderreport/orderreport.dart';
+
+import '../../core/orderreport1/order_report_screen.dart';
+import '../../core/orderreport1/components/billDetails.dart';
+import '../../core/orderreport1/components/outletList.dart';
 import '../../core/outletvisit/outletvisit.dart';
 import '../../core/pendingsync/pendingsync.dart';
 import '../../core/pendingverify/pendingverify.dart';
@@ -75,7 +80,16 @@ class RouteGenerator {
           type: PageTransitionType.rightToLeft,
           child: const AddOutletScreen(),
         );
-
+      case orderOutletScreen:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const OrderOutletScreen(),
+        );
+      case orderBillScreen:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const OrderBillScreen(),
+        );
       ///
       case productGroupListPath:
         FilterOutletInfoModel value =
@@ -120,10 +134,20 @@ class RouteGenerator {
           type: PageTransitionType.rightToLeft,
           child: const DeliveryReportScreen(),
         );
+      case deliveryReportCustomerScreen:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const DeliveryReportCustomerScreen(),
+        );
       case deliveryOutletSectionPath:
         return PageTransition(
           type: PageTransitionType.rightToLeft,
           child: const DeliveryOutletSection(),
+        );
+      case deliveryOutletCustomerSection:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const DeliveryOutletCustomerSection(),
         );
 
       /// ALL REPORT

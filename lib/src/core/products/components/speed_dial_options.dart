@@ -115,7 +115,7 @@ class SpeedDialOptionsWidget extends StatelessWidget {
             label: "Delivered Report",
             onTap: () {
               context.read<DeliveryState>().getIsFromIndex = false;
-              _navigateTo(context, routeName: deliveryReportPath);
+              _navigateTo(context, routeName: deliveryReportCustomerScreen);
             },
           ),
           // SpeedDialChild(

@@ -158,6 +158,13 @@ class GetAllPref {
       type: "String",
     );
   }
+  static getOutLetCode() async {
+    return await SharedPref.getData(
+      key: PrefText.setOutLetCode,
+      dValue: "-",
+      type: "String",
+    );
+  }
 
   static getProductName() async {
     return await SharedPref.getData(

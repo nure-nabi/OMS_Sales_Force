@@ -250,6 +250,12 @@ class LoginState extends ChangeNotifier {
   }) async {
     late final NavigatorState navigator = Navigator.of(context);
 
+    //final state = context.watch()<BranchState>();
+
+ // late  BranchState state= Provider.of<BranchState>(context,listen: false).getContext = context;
+
+
+
     await SetAllPref.companySelected(value: true);
     await SetAllPref.companyDetail(value: detailsModel);
     CompanyDetailsModel value = await GetAllPref.companyDetail();
@@ -265,7 +271,14 @@ class LoginState extends ChangeNotifier {
       );
     }
 
-    return navigator.pushReplacementNamed(branchPath);
+    // Fluttertoast.showToast(msg: state.branchList.length.toString());
+    // if(state.branchList.length > 0){
+    //   return navigator.pushReplacementNamed(homePagePath);
+    // }else{
+      return navigator.pushReplacementNamed(branchPath);
+  //  }
+
+
   }
 
 

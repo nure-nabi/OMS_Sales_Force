@@ -30,7 +30,12 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
         return Stack(
           children: [
             Scaffold(
-              appBar: AppBar(title: const Text("Quick Order")),
+              appBar: AppBar(title: const Text("Quick Order"),
+                actions: [
+                  IconButton(onPressed: () async{
+                    await  state.getDataFromAPI();
+                  }, icon: Icon(Icons.sync))
+                ],),
               body: ListView.builder(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 physics: const BouncingScrollPhysics(),

@@ -21,5 +21,6 @@ class PrefText {
   static String setBranch = "branch";
   static String setBranchName = "branchname";
   static String setOutLetName = "setOutLetName";
+  static String setOutLetCode = "setOutLetCode";
   static String productName = "productName";
 }
